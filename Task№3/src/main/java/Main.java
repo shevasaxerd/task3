@@ -20,48 +20,43 @@ public class Main {
         }
         System.out.println(N + 1 + " - " + "?");
         System.out.println("0" + " - " + "Exit");
+        if (N == 0 || N == 1 || N % 2 == 0) {
+            System.out.println("Invalid number of arguments. Example: rock paper scissors");
+            return;
+        }
+        for (int i = 0; i < args.length; i++){
+            for (int j = i+1; j < args.length; j++){
+                if (args[i].equals(args[j])) {
+                    System.out.println("Arguments must not be repeated!");
+                    return;
+                }
+            }
+
+        }
+
         while (true) {
-        while (true) {
-
-
-
-            if (N == 0 || N == 1 || N % 2 == 0) {
-                System.out.println("Invalid number of arguments. Example: rock paper scissors");
-                return;
-            }
-                for (int i = 0; i < args.length; i++){
-                    for (int j = i+1; j < args.length; j++){
-                        if (args[i].equals(args[j])) {
-                            System.out.println("Arguments must not be repeated!");
-                            return;
-                        }
-                    }
-
-
-
-            }
-            System.out.println("Your choice:");
-            int n = in.nextInt();
-            if (n > N + 1) {
-                System.out.println("Invalid argument selected, enter from 1 to " + (N + 1));
-                break;
-
-            }
-            if (n == N + 1) {
-                table.createTable(args);
-                break;
-
-            }
-            if (n == 0) {
-                System.out.println("Exit...");
-                return;
-            }
 
             SecureRandom random = new SecureRandom();
             int rand = random.nextInt(args.length);
             if (rand == 0) {rand = 1;}
 
             byte[] seed = keyAndHMAC.generateKeyAndHMAC(args, rand);
+
+            System.out.println("Your choice:");
+            int n = in.nextInt();
+            if (n > N + 1) {
+                System.out.println("Invalid argument selected, enter from 1 to " + (N + 1));
+                continue;
+            }
+            if (n == N + 1) {
+                table.createTable(args);
+                continue;
+
+            }
+            if (n == 0) {
+                System.out.println("Exit...");
+                return;
+            }
             System.out.println("Computer choice:");
             //int m = in.nextInt();
             System.out.println(rand);
@@ -69,11 +64,9 @@ public class Main {
 
             int g = func.func(n, rand, N);
             result(n, rand, g);
-
-
         }
     }
-    }
+
 
 
 
